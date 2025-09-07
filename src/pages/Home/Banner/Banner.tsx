@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
 
   const slides = [
     {
@@ -41,17 +41,17 @@ const Banner = () => {
   ];
 
   // Auto-play functionality
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
+  // useEffect(() => {
+  //   let interval: NodeJS.Timeout;
     
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-      }, 5000);
-    }
+  //   if (isPlaying) {
+  //     interval = setInterval(() => {
+  //       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  //     }, 5000);
+  //   }
     
-    return () => clearInterval(interval);
-  }, [isPlaying, slides.length]);
+  //   return () => clearInterval(interval);
+  // }, [isPlaying, slides.length]);
 
   const goToNext = () => {
     setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);

@@ -2,10 +2,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import { Navigation } from "swiper/modules";
-import { TCarData } from "@/types";
+import { TPhoneData } from "@/types";
 import { Link } from "react-router-dom";
 
-const TodayDeals = ({ data }: { data: { data: TCarData[] } }) => {
+const TodayDeals = ({ data }: { data: { data: TPhoneData[] } }) => {
   return (
     <section className="container mx-auto px-4 py-16">
       {/* Section Header */}

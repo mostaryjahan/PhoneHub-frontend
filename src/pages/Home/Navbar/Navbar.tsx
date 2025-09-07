@@ -22,7 +22,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const megaMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const megaMenuRef = useRef<HTMLDivElement>(null);
+ const megaMenuRef = useRef<HTMLLIElement>(null);
+
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const { data: cartData } = useGetIndividualCartItemsQuery(

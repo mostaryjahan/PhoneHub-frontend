@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { TPhone } from "@/types";
 import { Star, ShoppingCart, Eye, Heart, Truck, Shield } from "lucide-react";
 
-const ProductCard = ({ car, viewMode = "grid" }: { car: TPhone; viewMode?: "grid" | "list" }) => {
+const ProductCard = ({ car }: { car: TPhone }) => {
   const {
     _id,
     image,

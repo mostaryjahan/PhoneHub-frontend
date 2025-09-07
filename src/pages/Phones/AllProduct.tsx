@@ -274,7 +274,7 @@ const AllProduct = () => {
                 <ProductCard 
                   key={item._id} 
                   car={item} 
-                  viewMode={viewMode}
+                  // viewMode={viewMode}
                 />
               ))}
             </div>

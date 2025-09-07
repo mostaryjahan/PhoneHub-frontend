@@ -20,7 +20,7 @@ A modern web application for managing and browsing stationery products, develope
 
 ---
 
-## 🧩 Frontend Stack
+## Frontend Stack
 
 - **React:** UI framework for building components.
 - **TypeScript:** Type-safe development for JavaScript.
@@ -30,29 +30,29 @@ A modern web application for managing and browsing stationery products, develope
 
 ---
 
-## 🎨 Styling
+## Styling
 
 - **TailwindCSS:** Utility-first CSS framework.
 - **ShadCN:** A set of beautifully-designed, accessible components and a code distribution platform. It provides TailwindCSS minimally styled components for rapid UI development.
 
 ---
 
-## ⚙️ Build Tool
+## Build Tool
 
 - **Vite:** Fast and modern build tool.
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 - Node.js (v16 or higher)
 - npm / yarn / bun
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/
-   cd 
+   git clone https://github.com/mostaryjahan/PhoneHub-frontend
+   cd PhoneHub-frontend

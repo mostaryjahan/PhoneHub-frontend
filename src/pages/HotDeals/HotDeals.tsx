@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useGetAllPhonesQuery } from "@/redux/features/phone/phoneManagementApi";
 import ProductCard from "../Phones/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -311,7 +311,7 @@ const HotDeals = () => {
                 <ProductCard 
                   key={product._id} 
                   car={product} 
-                  viewMode={viewMode}
+                  
                 />
               ))}
             </div>

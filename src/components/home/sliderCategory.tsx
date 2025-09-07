@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { homeCategoryData } from "./homeCategoryData";
-import { TCarData } from "@/types";
+import { TPhoneData } from "@/types";
 
 interface SliderCategoryProps {
-  data: { data: TCarData[] };
+  data: { data: TPhoneData[] };
   title?: string;
   maxItems?: number;
 }
