@@ -84,7 +84,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-6">
             <Card className="border-0 shadow-lg">
-              <CardHeader className="bg-primary text-white rounded-t-lg">
+              <CardHeader className="bg-accent text-white rounded-t-lg">
                 <CardTitle className="flex items-center">
                   <HeadphonesIcon className="mr-2 h-6 w-6" />
                   Get In Touch
@@ -140,15 +140,15 @@ const Contact = () => {
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium">Device Repair</span>
-                  <Button variant="link" className="text-blue-600 h-8 p-0">Learn more</Button>
+                 
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium">Warranty Claims</span>
-                  <Button variant="link" className="text-blue-600 h-8 p-0">Learn more</Button>
+                  
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium">Order Support</span>
-                  <Button variant="link" className="text-blue-600 h-8 p-0">Learn more</Button>
+                  
                 </div>
               </CardContent>
             </Card>
@@ -157,7 +157,7 @@ const Contact = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="border-0 shadow-lg">
-              <CardHeader className="bg-primary text-white rounded-t-lg">
+              <CardHeader className="bg-accent text-white rounded-t-lg">
                 <CardTitle className="flex items-center">
                   <MessageCircle className="mr-2 h-6 w-6" />
                   Send us a Message
@@ -252,7 +252,7 @@ const Contact = () => {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-primary text-white hover:bg-primary/80"
+                    className="w-full bg-accent text-white hover:bg-accent/80"
                     size="lg"
                   >
                     <Send className="mr-2 h-5 w-5" /> Send Message

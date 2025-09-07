@@ -58,7 +58,7 @@ const Sidebar = () => {
               <span>Overview</span>
             </NavLink>
           </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/dashboard/addPhone"
                   className={({ isActive }) =>
@@ -72,7 +72,7 @@ const Sidebar = () => {
                   <PlusSquare className="w-5 h-5" />
                   <span>Add Products</span>
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to="/dashboard/manageProducts"
@@ -135,8 +135,89 @@ const Sidebar = () => {
               </li>
             </>
           )}
+
           
-          {(user?.role === "user" || user?.role === "vendor") && (
+          {user?.role === "vendor" && (
+            <>
+            <li>
+            <NavLink
+              to="/dashboard/overview"
+              className={({ isActive }) =>
+                `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
+                  isActive
+                    ? " text-gray-100 font-semibold shadow-lg"
+                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                }`
+              }
+            >
+              <LayoutDashboard className="w-5 h-5" />
+              <span>Overview</span>
+            </NavLink>
+          </li>
+              <li>
+                <NavLink
+                  to="/dashboard/addPhone"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? " text-gray-100 font-semibold shadow-lg"
+                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                    }`
+                  }
+                >
+                  <PlusSquare className="w-5 h-5" />
+                  <span>Add Products</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/manageProducts"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? " text-gray-100 font-semibold shadow-lg"
+                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                    }`
+                  }
+                >
+                  <Settings className="w-5 h-5" />
+                  <span>Manage Products</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/manageOrders"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? " text-gray-100 font-semibold shadow-lg"
+                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                    }`
+                  }
+                >
+                  <FileText className="w-5 h-5" />
+                  <span>Manage Orders</span>
+                </NavLink>
+              </li>
+               <li>
+                <NavLink
+                  to="/dashboard/myProfile"
+                  className={({ isActive }) =>
+                    `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? " text-gray-100 font-semibold shadow-lg"
+                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                    }`
+                  }
+                >
+                  <User className="w-5 h-5" />
+                  <span>My Profile</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+          
+          {(user?.role === "user") && (
             <>
               <li>
                 <NavLink

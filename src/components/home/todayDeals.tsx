@@ -4,14 +4,19 @@ import 'swiper/css';
 import { Navigation } from "swiper/modules";
 import { TPhoneData } from "@/types";
 import { Link } from "react-router-dom";
+import { MdLocalOffer } from "react-icons/md";
 
 const TodayDeals = ({ data }: { data: { data: TPhoneData[] } }) => {
   return (
     <section className="container mx-auto px-4 py-16">
       {/* Section Header */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-primary mb-4">
-          Today's <span className="text-secondary">Hot Deals</span>
+         <div className="inline-flex items-center gap-2 bg-accent/20 px-4 py-2 rounded-full mb-4">
+            <MdLocalOffer className="w-4 h-4 text-accent" />
+            <span className="text-sm font-semibold text-primary">Hot Deals</span>
+          </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+          Today's <span className="text-primary">Hot Deals</span>
         </h2>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           Don't miss out on these exclusive limited-time offers on premium smartphones
@@ -21,7 +26,7 @@ const TodayDeals = ({ data }: { data: { data: TPhoneData[] } }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Super Deals Section */}
-        <div className="relative bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-6 group/super overflow-hidden">
+        <div className="relative bg-gradient-to-br from-accent to-primary rounded-2xl p-6 group/super overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTR2LTRoNHY0em0tNC00aC00di00aDR2NHptNC00aC00di00aDR2NHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10"></div>
           
@@ -67,7 +72,7 @@ const TodayDeals = ({ data }: { data: { data: TPhoneData[] } }) => {
         </div>
 
         {/* Big Save Section */}
-        <div className="relative bg-gradient-to-br from-blue-600 to-purple-700 rounded-2xl p-6 group/big overflow-hidden">
+        <div className="relative bg-gradient-to-br from-accent to-primary rounded-2xl p-6 group/big overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIiIvPjwvZz48L2c+PC9zdmc+')] opacity-10"></div>
           

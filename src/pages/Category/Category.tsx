@@ -6,13 +6,6 @@ import ProductCard from "../Phones/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Card,
   CardContent,
   CardHeader,
@@ -31,6 +24,7 @@ import {
   ChevronRight,
   X,
   Home,
+  ChevronDown,
 } from "lucide-react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
@@ -158,33 +152,27 @@ const CategoryPage = () => {
         </div>
 
         {/* Search and Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              type="text"
-              placeholder="Search phones by model or features..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 h-11"
-            />
-          </div>
+        <div className="flex flex-col justify-end lg:flex-row gap-4 mb-6">
+         
           
           <div className="flex gap-2">
-            <Select value={limit.toString()} onValueChange={(value) => setLimit(Number(value))}>
-              <SelectTrigger className="w-20">
-                <SelectValue placeholder="12" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="12">12</SelectItem>
-                <SelectItem value="24">24</SelectItem>
-                <SelectItem value="36">36</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="relative">
+              <select
+                value={limit.toString()}
+                onChange={(e) => setLimit(Number(e.target.value))}
+                className="w-20 h-10 px-3 pr-8 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer"
+              >
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="36">36</option>
+              </select>
+              <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            </div>
 
             <Button
               variant={viewMode === "grid" ? "default" : "outline"}
               size="icon"
+              className="bg-white"
               onClick={() => setViewMode("grid")}
             >
               <Grid className="w-4 h-4" />
@@ -192,9 +180,10 @@ const CategoryPage = () => {
             <Button
               variant={viewMode === "list" ? "default" : "outline"}
               size="icon"
+               className="bg-white" 
               onClick={() => setViewMode("list")}
             >
-              <List className="w-4 w-4" />
+              <List className="w-4 h-4" />
             </Button>
           </div>
         </div>
@@ -218,27 +207,37 @@ const CategoryPage = () => {
                 </div>
               </CardHeader>
               <CardContent className="space-y-6">
+                 <h3 className="font-semibold text-sm ">Brand</h3>
+                 <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              type="text"
+              placeholder="Search phones by model or features..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-10 pr-4 py-2 h-11"
+            />
+          </div>
                 {/* Brand Filter */}
                 <div className="space-y-3">
                   <h3 className="font-semibold text-sm">Brand</h3>
-                  <Select 
-                    value={brand} 
-                    onValueChange={setBrand}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="All Brands" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Brands</SelectItem>
-                      <SelectItem value="Apple">Apple</SelectItem>
-                      <SelectItem value="Samsung">Samsung</SelectItem>
-                      <SelectItem value="Google">Google</SelectItem>
-                      <SelectItem value="OnePlus">OnePlus</SelectItem>
-                      <SelectItem value="Xiaomi">Xiaomi</SelectItem>
-                      <SelectItem value="Motorola">Motorola</SelectItem>
-                      <SelectItem value="Nokia">Nokia</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="relative">
+                    <select
+                      value={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                      className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer"
+                    >
+                      <option value="all">All Brands</option>
+                      <option value="Apple">Apple</option>
+                      <option value="Samsung">Samsung</option>
+                      <option value="Google">Google</option>
+                      <option value="OnePlus">OnePlus</option>
+                      <option value="Xiaomi">Xiaomi</option>
+                      <option value="Motorola">Motorola</option>
+                      <option value="Nokia">Nokia</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                 </div>
 
                 {/* Price Range Filter */}
@@ -262,28 +261,32 @@ const CategoryPage = () => {
                 {/* Sort Options */}
                 <div className="space-y-3">
                   <h3 className="font-semibold text-sm">Sort By</h3>
-                  <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Default" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="default">Default</SelectItem>
-                      <SelectItem value="price">Price</SelectItem>
-                      <SelectItem value="year">Release Year</SelectItem>
-                      <SelectItem value="brand">Brand</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="relative">
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer"
+                    >
+                      <option value="default">Default</option>
+                      <option value="price">Price</option>
+                      <option value="year">Release Year</option>
+                      <option value="brand">Brand</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                  </div>
                   
                   {sortBy && sortBy !== "default" && (
-                    <Select value={sortOrder} onValueChange={setSortOrder}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Order" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="asc">Ascending</SelectItem>
-                        <SelectItem value="desc">Descending</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="relative">
+                      <select
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value)}
+                        className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer"
+                      >
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                    </div>
                   )}
                 </div>
               </CardContent>
@@ -324,7 +327,7 @@ const CategoryPage = () => {
                 <ProductCard 
                   key={item._id} 
                   car={item} 
-                  // viewMode={viewMode}
+                 
                 />
               ))}
             </div>

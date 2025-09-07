@@ -175,7 +175,7 @@ const AdminOverview = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 space-y-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Overview</h1>
 
       {/* KPI Cards */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

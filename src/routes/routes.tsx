@@ -30,7 +30,7 @@ const DashboardIndex = () => {
   const user = useAppSelector(selectCurrentUser);
 
   if (!user) return <Navigate to="/login" replace />;
-  if (user.role === "admin") return <Navigate to="overview" replace />;
+  if (user.role === "admin" || user.role === "vendor") return <Navigate to="overview" replace />;
   return <Navigate to="myOrders" replace />;
 };
 

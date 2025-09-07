@@ -26,13 +26,14 @@ const WhyChoose = () => {
   return (
     <div>
        {/* Features Section */}
-      <section className="py-20">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
+          
           <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-16">Why Choose PhoneHub?</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="text-center p-6">
-                <div className="text-secondary mb-4 flex justify-center">{feature.icon}</div>
+              <div key={index} className="text-center p-6 border bg-gray-50 border-gray-100 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                <div className="text-accent mb-4 flex justify-center">{feature.icon}</div>
                 <h3 className="text-xl font-semibold text-primary mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </div>

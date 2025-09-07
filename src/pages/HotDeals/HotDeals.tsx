@@ -10,15 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Slider,
-} from "@/components/ui/slider";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import {
   Filter,
@@ -28,7 +21,7 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  Flame
+  Flame,
 } from "lucide-react";
 import { TPhone } from "@/types";
 
@@ -42,7 +35,11 @@ const HotDeals = () => {
   const [limit, setLimit] = useState(12);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  const { data: phonesData, isLoading, error } = useGetAllPhonesQuery({
+  const {
+    data: phonesData,
+    isLoading,
+    error,
+  } = useGetAllPhonesQuery({
     search,
     brand: brand === "all" ? "" : brand,
     priceMin: priceRange[0],
@@ -54,15 +51,17 @@ const HotDeals = () => {
   });
 
   // Filter products with discount and apply search/brand filters
-  const discountProducts = phonesData?.data?.filter((product: any) => {
-    const hasDiscount = product.discount > 0;
-    const matchesSearch = search ? 
-      product.name.toLowerCase().includes(search.toLowerCase()) || 
-      product.brand.toLowerCase().includes(search.toLowerCase()) : true;
-    const matchesBrand = brand === "all" ? true : product.brand === brand;
-    
-    return hasDiscount && matchesSearch && matchesBrand;
-  }) || [];
+  const discountProducts =
+    phonesData?.data?.filter((product: any) => {
+      const hasDiscount = product.discount > 0;
+      const matchesSearch = search
+        ? product.name.toLowerCase().includes(search.toLowerCase()) ||
+          product.brand.toLowerCase().includes(search.toLowerCase())
+        : true;
+      const matchesBrand = brand === "all" ? true : product.brand === brand;
+
+      return hasDiscount && matchesSearch && matchesBrand;
+    }) || [];
 
   const clearFilters = () => {
     setSearch("");
@@ -73,7 +72,8 @@ const HotDeals = () => {
     setPage(1);
   };
 
-  const hasActiveFilters = search || brand !== "all" || priceRange[0] > 0 || priceRange[1] < 2000;
+  const hasActiveFilters =
+    search || brand !== "all" || priceRange[0] > 0 || priceRange[1] < 2000;
 
   if (isLoading) {
     return (
@@ -87,7 +87,9 @@ const HotDeals = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-red-600 mb-2">Error Loading Products</h2>
+          <h2 className="text-xl font-semibold text-red-600 mb-2">
+            Error Loading Products
+          </h2>
           <p className="text-gray-600">Please try again later</p>
         </div>
       </div>
@@ -95,7 +97,7 @@ const HotDeals = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
@@ -108,25 +110,18 @@ const HotDeals = () => {
             </h1>
           </div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Discover amazing discounts on premium smartphones. Limited time offers!
+            Discover amazing discounts on premium smartphones. Limited time
+            offers!
           </p>
         </div>
 
         {/* Search and Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              type="text"
-              placeholder="Search hot deals by brand or model..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 h-11"
-            />
-          </div>
-          
+        <div className="flex flex-col lg:flex-row justify-end gap-4 mb-6">
           <div className="flex gap-2">
-            <Select value={limit.toString()} onValueChange={(value) => setLimit(Number(value))}>
+            <Select
+              value={limit.toString()}
+              onValueChange={(value) => setLimit(Number(value))}
+            >
               <SelectTrigger className="w-20">
                 <SelectValue placeholder="12" />
               </SelectTrigger>
@@ -160,7 +155,7 @@ const HotDeals = () => {
           {/* Sidebar Filters */}
           <div className="w-full lg:w-1/4">
             <Card className="border-0 shadow-lg">
-              <CardHeader className="pb-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-t-lg">
+              <CardHeader className="pb-4 bg-white rounded-t-lg">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg flex items-center gap-2">
                     <Filter className="w-5 h-5 text-red-600" />
@@ -173,15 +168,23 @@ const HotDeals = () => {
                     </Button>
                   )}
                 </div>
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    type="text"
+                    placeholder="Search hot deals by brand or model..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="pl-10 pr-4 py-2 h-11"
+                  />
+                </div>
               </CardHeader>
+
               <CardContent className="space-y-6 pt-6">
                 {/* Brand Filter */}
                 <div className="space-y-3">
                   <h3 className="font-semibold text-sm">Brand</h3>
-                  <Select 
-                    value={brand} 
-                    onValueChange={setBrand}
-                  >
+                  <Select value={brand} onValueChange={setBrand}>
                     <SelectTrigger>
                       <SelectValue placeholder="All Brands" />
                     </SelectTrigger>
@@ -227,7 +230,7 @@ const HotDeals = () => {
                       <SelectItem value="brand">Brand</SelectItem>
                     </SelectContent>
                   </Select>
-                  
+
                   <Select value={sortOrder} onValueChange={setSortOrder}>
                     <SelectTrigger>
                       <SelectValue placeholder="Order" />
@@ -256,10 +259,15 @@ const HotDeals = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">Max Discount</span>
-                    <Badge variant="outline" className="bg-green-50 text-green-700">
-                      {discountProducts.length > 0 
-                        ? `${Math.max(...discountProducts.map((p: TPhone) => p.discount))}%` 
-                        : '0%'}
+                    <Badge
+                      variant="outline"
+                      className="bg-green-50 text-green-700"
+                    >
+                      {discountProducts.length > 0
+                        ? `${Math.max(
+                            ...discountProducts.map((p: TPhone) => p.discount)
+                          )}%`
+                        : "0%"}
                     </Badge>
                   </div>
                 </div>
@@ -278,7 +286,10 @@ const HotDeals = () => {
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-600">Active filters:</span>
                   {brand && brand !== "all" && (
-                    <Badge variant="secondary" className="capitalize bg-red-100 text-red-800">
+                    <Badge
+                      variant="secondary"
+                      className="capitalize bg-red-100 text-red-800"
+                    >
                       Brand: {brand}
                     </Badge>
                   )}
@@ -291,8 +302,16 @@ const HotDeals = () => {
               <div className="bg-gradient-to-r from-red-600 to-orange-500 rounded-lg p-4 mb-6 text-white">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-bold text-lg">🔥 Limited Time Offers</h3>
-                    <p className="text-sm">Save up to {Math.max(...discountProducts.map((p: TPhone) => p.discount))}% on selected phones</p>
+                    <h3 className="font-bold text-lg">
+                      🔥 Limited Time Offers
+                    </h3>
+                    <p className="text-sm">
+                      Save up to{" "}
+                      {Math.max(
+                        ...discountProducts.map((p: TPhone) => p.discount)
+                      )}
+                      % on selected phones
+                    </p>
                   </div>
                   <Badge variant="outline" className="bg-white text-red-600">
                     Hot Deals
@@ -302,17 +321,15 @@ const HotDeals = () => {
             )}
 
             {/* Products Grid/List */}
-            <div className={
-              viewMode === "grid" 
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                : "space-y-4"
-            }>
-              {discountProducts.map((product:any) => (
-                <ProductCard 
-                  key={product._id} 
-                  car={product} 
-                  
-                />
+            <div
+              className={
+                viewMode === "grid"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                  : "space-y-4"
+              }
+            >
+              {discountProducts.map((product: any) => (
+                <ProductCard key={product._id} car={product} />
               ))}
             </div>
 
@@ -324,13 +341,15 @@ const HotDeals = () => {
                   No hot deals found
                 </h3>
                 <p className="text-gray-500 mb-4">
-                  {hasActiveFilters 
+                  {hasActiveFilters
                     ? "Try adjusting your filters to see more deals"
-                    : "Check back later for new discounts and promotions"
-                  }
+                    : "Check back later for new discounts and promotions"}
                 </p>
                 {hasActiveFilters && (
-                  <Button onClick={clearFilters} className="bg-red-600 hover:bg-red-700">
+                  <Button
+                    onClick={clearFilters}
+                    className="bg-red-600 hover:bg-red-700"
+                  >
                     Clear Filters
                   </Button>
                 )}
@@ -349,21 +368,29 @@ const HotDeals = () => {
                   <ChevronLeft className="w-4 h-4" />
                   Previous
                 </Button>
-                
+
                 <div className="flex items-center gap-2">
-                  {Array.from({ length: Math.min(5, Math.ceil(discountProducts.length / limit)) }, (_, i) => {
-                    const pageNumber = i + 1;
-                    return (
-                      <Button
-                        key={pageNumber}
-                        variant={page === pageNumber ? "default" : "outline"}
-                        onClick={() => setPage(pageNumber)}
-                        className="w-10 h-10 p-0"
-                      >
-                        {pageNumber}
-                      </Button>
-                    );
-                  })}
+                  {Array.from(
+                    {
+                      length: Math.min(
+                        5,
+                        Math.ceil(discountProducts.length / limit)
+                      ),
+                    },
+                    (_, i) => {
+                      const pageNumber = i + 1;
+                      return (
+                        <Button
+                          key={pageNumber}
+                          variant={page === pageNumber ? "default" : "outline"}
+                          onClick={() => setPage(pageNumber)}
+                          className="w-10 h-10 p-0"
+                        >
+                          {pageNumber}
+                        </Button>
+                      );
+                    }
+                  )}
                 </div>
 
                 <Button

@@ -39,6 +39,11 @@ const Login = () => {
         setValue("email","admin@gmail.com")
         setValue("password", '12345678')
     }
+
+     const handleVendorClick =()=>{
+        setValue("email", 'vendor@gmail.com')
+        setValue("password","12345678")
+    }
     const handleUserClick =()=>{
         setValue("email", 'user@gmail.com')
         setValue("password","12345678")
@@ -52,6 +57,7 @@ const Login = () => {
                 </CardHeader>
                <div className="flex justify-around mb-2 px-6">
                     <Button onClick={handleAdminClick} variant="outline">Admin</Button>
+                    <Button onClick={handleVendorClick} variant="outline">Vendor</Button>
                     <Button onClick={handleUserClick} variant="outline">User</Button>
                </div>
                 <CardContent>

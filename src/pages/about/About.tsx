@@ -17,22 +17,22 @@ const About = () => {
     {
       name: "Sarah Johnson",
       role: "CEO & Founder",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+      image: "/images/ceo.avif"
     },
     {
       name: "Michael Chen",
       role: "Tech Director",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+      image: "/images/director.avif"
     },
     {
       name: "Emily Rodriguez",
       role: "Marketing Head",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+      image: "/images/marketing.avif"
     },
     {
       name: "David Kim",
       role: "Product Manager",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+      image: "/images/manager.avif"
     }
   ];
 
@@ -64,10 +64,10 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-primary text-white py-20">
+      <section className=" text-black py-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">About PhoneHub</h1>
-          <p className="text-xl md:text-2xl text-secondary max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">About PhoneHub</h1>
+          <p className=" md:text-lg text-gray-800 max-w-3xl mx-auto">
             Your trusted partner in the world of mobile technology
           </p>
         </div>
@@ -94,12 +94,12 @@ const About = () => {
             </div>
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1715&q=80"
+                src="/images/aboutUs.avif"
                 alt="PhoneHub Team"
                 className="rounded-2xl shadow-2xl"
               />
-              <div className="absolute -bottom-6 -left-6 bg-secondary text-primary p-6 rounded-2xl shadow-xl">
-                <div className="text-3xl font-bold">8+</div>
+              <div className="absolute -bottom-6 -left-6 bg-accent text-secondary p-6 rounded-2xl shadow-xl">
+                <div className="text-3xl font-bold text-center">8+</div>
                 <div className="text-sm">Years of Excellence</div>
               </div>
             </div>
@@ -127,8 +127,8 @@ const About = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-16">Our Values</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-secondary mb-4 flex justify-center">{value.icon}</div>
+              <div key={index} className="text-center p-6 bg-accent/10 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                <div className="text-accent mb-4 flex justify-center">{value.icon}</div>
                 <h3 className="text-xl font-semibold text-primary mb-4">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
               </div>
@@ -150,7 +150,7 @@ const About = () => {
                   className="w-32 h-32 rounded-full mx-auto mb-6 object-cover"
                 />
                 <h3 className="text-xl font-semibold text-primary mb-2">{member.name}</h3>
-                <p className="text-secondary">{member.role}</p>
+                <p className="text-muted">{member.role}</p>
               </div>
             ))}
           </div>

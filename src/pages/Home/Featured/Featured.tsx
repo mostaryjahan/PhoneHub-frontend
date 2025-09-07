@@ -21,12 +21,12 @@ const Featured = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-secondary/10 px-4 py-2 rounded-full mb-4">
-            <Zap className="w-4 h-4 text-secondary" />
+          <div className="inline-flex items-center gap-2 bg-accent/20 px-4 py-2 rounded-full mb-4">
+            <Zap className="w-4 h-4 text-accent" />
             <span className="text-sm font-semibold text-primary">Featured Collection</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            Premium <span className="text-secondary">Smartphones</span>
+            Premium <span className="text-primary">Smartphones</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our handpicked selection of the latest and most innovative smartphones
@@ -50,7 +50,7 @@ const Featured = () => {
             </div>
           </div>
           <Link to="/allProducts">
-            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold rounded-lg">
+            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 font-semibold rounded-lg">
               View All Products
             </Button>
           </Link>

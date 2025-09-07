@@ -57,6 +57,8 @@ export const UserProfilePage = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(user?.photo);
   const [updateUserProfile, { isLoading: isUpdatingProfile }] = useUpdateUserProfilePhotoMutation();
 
+  
+
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
     mode: "onBlur",
@@ -126,18 +128,18 @@ export const UserProfilePage = () => {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header Section */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">User Profile</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800">My Profile</h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Manage your personal information, security settings, and account preferences
           </p>
         </div>
 
         <Tabs defaultValue="profile" className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-            <TabsTrigger value="profile" className="data-[state=active]:bg-primary">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8 bg-accent/10 ">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-accent data-[state=active]:text-white">
               Profile Information
             </TabsTrigger>
-            <TabsTrigger value="account" className="data-[state=active]:bg-primary">
+            <TabsTrigger value="account" className="data-[state=active]:bg-accent data-[state=active]:text-white">
               Account Details
             </TabsTrigger>
           </TabsList>

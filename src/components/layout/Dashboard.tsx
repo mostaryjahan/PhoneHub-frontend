@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, Package, User, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useGetSingleUserQuery } from "@/redux/features/User/userManagementApi";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,7 +25,14 @@ const Dashboard = () => {
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
- 
+  // Fetch complete user data including photo
+  const { data: userData, isLoading: isUserLoading } = useGetSingleUserQuery(user?.email, {
+    skip: !user?.email,
+  });
+  
+  // Use the complete user data with photo if available, otherwise fall back to basic user info
+  const completeUser = userData?.data || user;
+
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
     if (!token && !storedToken) {
@@ -40,16 +48,16 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  if (loading)
+  if (loading || isUserLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-secondary"></div>
       </div>
     );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       <header className="bg-primary text-white fixed top-0 left-0 right-0 z-50 h-16 border-b border-gray-700 shadow-lg">
         <div className="flex items-center justify-between h-full px-4 md:px-6">
           {/* Left side - Logo and mobile menu */}
@@ -81,15 +89,14 @@ const Dashboard = () => {
               <div>
                 <h2 className="text-lg font-bold">Dashboard</h2>
                 <p className="text-secondary text-xs capitalize">
-                  {user?.role} Panel
+                  {completeUser?.role} Panel
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right side - Profile dropdown and back to home */}
+          {/* Right side - Profile dropdown */}
           <div className="flex items-center space-x-4">
-
             {/* Profile dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -98,18 +105,21 @@ const Dashboard = () => {
                   className="flex items-center space-x-2 p-1 hover:bg-gray-800 rounded-full"
                 >
                   <Avatar className="h-8 w-8 border-2 border-gray-600">
-                    <AvatarImage src={user?.avatarUrl} alt={user?.name} />
+                    <AvatarImage 
+                      src={completeUser?.photo} 
+                      alt={completeUser?.name} 
+                    />
                     <AvatarFallback className="bg-secondary text-primary font-semibold">
-                      {user?.name?.[0]?.toUpperCase() }
+                      {completeUser?.name?.[0]?.toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden md:block text-left">
                     <p className="text-sm font-medium truncate max-w-[120px]">
-                      {user?.name || "not found"}
+                      {completeUser?.name || "User"}
                     </p>
-                    {/* <p className="text-xs text-secondary capitalize">
-                      {user?.role}
-                    </p> */}
+                    <p className="text-xs text-gray-300 capitalize">
+                      {completeUser?.role}
+                    </p>
                   </div>
                 </Button>
               </DropdownMenuTrigger>
@@ -139,12 +149,12 @@ const Dashboard = () => {
 
       {/* Main content area */}
       <div className="flex pt-16">
-        {/* Desktop Sidebar - Lower z-index */}
+        {/* Desktop Sidebar */}
         <div className="hidden md:block fixed left-0 top-0 h-full z-40">
           <Sidebar />
         </div>
 
-        {/* Main content - Adjusted for sidebar width */}
+        {/* Main content */}
         <main className="flex-1 md:ml-64 p-4 md:p-6 min-h-[calc(100vh-4rem)] w-[calc(100%-16rem)]">
           <Outlet />
         </main>

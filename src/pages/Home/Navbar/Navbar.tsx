@@ -17,15 +17,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Logo from "@/assets/Logo";
+import { useGetSingleUserQuery } from "@/redux/features/User/userManagementApi"; // Add this import
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const megaMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
- const megaMenuRef = useRef<HTMLLIElement>(null);
+  const megaMenuRef = useRef<HTMLLIElement>(null);
 
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  
+  // Fetch complete user data including photo
+  const { data: userData } = useGetSingleUserQuery(currentUser?.email, {
+    skip: !currentUser?.email,
+  });
+  
+  // Use the complete user data with photo if available, otherwise fall back to basic user info
+  const completeUser = userData?.data || currentUser;
+
   const { data: cartData } = useGetIndividualCartItemsQuery(
     currentUser?.email,
     {
@@ -97,9 +107,9 @@ const Navbar = () => {
                 {NavbarMenu.map((item) => {
                   let link = item.link;
                   if (item.title === "Dashboard") {
-                    if (currentUser?.role === "admin") {
+                    if (completeUser?.role === "admin") {
                       link = "/dashboard/overview";
-                    } else if (currentUser) {
+                    } else if (completeUser) {
                       link = "/dashboard/myProfile";
                     }
                   }
@@ -128,11 +138,11 @@ const Navbar = () => {
                         {/* Custom Mega Menu */}
                         {megaMenuOpen && (
                           <div 
-                            className="absolute left-0 top-full bg-white text-primary w-[800px] p-6 rounded-lg shadow-xl border border-gray-200 mt-1"
+                            className="absolute left-0 top-full bg-white text-primary w-[600px] p-6 rounded-lg shadow-xl border border-gray-200 mt-1"
                             onMouseEnter={handleMegaMenuOpen}
                             onMouseLeave={handleMegaMenuClose}
                           >
-                            <div className="grid grid-cols-4 gap-6">
+                            <div className="grid grid-cols-3 gap-6">
                               {MegaMenuData.categories.map((category) => (
                                 <div key={category.id}>
                                   <h3 className="text-sm mb-3 font-semibold text-primary border-b border-secondary pb-1">
@@ -143,7 +153,7 @@ const Navbar = () => {
                                       <li key={subItem.id} className="mb-2">
                                         <NavLink
                                           to={subItem.link}
-                                          className="text-gray-700 hover:text-secondary transition-colors cursor-pointer p-2 rounded-md hover:bg-gray-100 w-full block"
+                                          className="text-gray-700 hover:text-muted transition-colors cursor-pointer p-2 rounded-md hover:bg-gray-100 w-full block"
                                           onClick={() => setMegaMenuOpen(false)}
                                         >
                                           {subItem.name}
@@ -183,7 +193,7 @@ const Navbar = () => {
           {/* Right side icons and user menu */}
           <div className="flex items-center gap-4">
             {/* Mobile login button - visible on small screens */}
-            {!currentUser && (
+            {!completeUser && (
               <NavLink to="/login" className="md:hidden">
                 <button className="hover:bg-secondary hover:text-primary font-semibold rounded-md border-2 border-secondary px-3 py-1 duration-200 text-sm">
                   Login
@@ -205,17 +215,17 @@ const Navbar = () => {
             </NavLink>
 
             {/* Conditionally render Login or Logout - hidden on mobile */}
-            {currentUser ? (
+            {completeUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 focus:outline-none">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={currentUser.avatarUrl || ""} alt="User" />
+                    <AvatarImage src={completeUser.photo || ""} alt="User" />
                     <AvatarFallback className="bg-secondary text-primary">
-                      {currentUser.name ? currentUser.name[0] : "U"}
+                      {completeUser.name ? completeUser.name[0].toUpperCase() : "U"}
                     </AvatarFallback>
                   </Avatar>
                   <span className="hidden md:inline text-sm">
-                    {currentUser.name}
+                    {completeUser.name}
                   </span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent

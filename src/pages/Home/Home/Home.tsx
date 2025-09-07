@@ -7,6 +7,7 @@ import TodayDeals from "@/components/home/todayDeals";
 import CompanyFeatures from "@/components/home/companyFeatures";
 import CTA from "../CTA";
 import WhyChoose from "@/pages/WhyChoose/WhyChoose";
+import Review from "../Review/Review";
 
 const Home = () => {
   const { data: phoneData } = useGetAllPhonesQuery({});
@@ -19,6 +20,7 @@ const Home = () => {
         <TodayDeals data={{ data: phoneData?.data ?? [] }} />
         <CompanyFeatures />
         <WhyChoose/>
+        <Review/>
         <FAQ />
         <CTA/>
       </div>

@@ -5,7 +5,7 @@ export type TUser ={
     name:string;
     email:string;
     role:string;
-    avatarUrl:string;
+    photo:string;
     iat:number;
     exp:number;
 };
