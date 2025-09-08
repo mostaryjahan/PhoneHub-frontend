@@ -4,7 +4,7 @@ export const NavbarMenu = [
   { id: 3, title: "Hot Deals", link: "/hot-deals" },
   { id: 4, title: "About", link: "/about" },
   { id: 5, title: "Contact", link: "/contact" },
-  { id: 5, title: "Support", link: "/support" },
+  { id: 6, title: "Support", link: "/support" },
 ];
 
 export const MegaMenuData = {

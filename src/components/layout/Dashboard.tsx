@@ -30,7 +30,7 @@ const Dashboard = () => {
     skip: !user?.email,
   });
   
-  // Use the complete user data with photo if available, otherwise fall back to basic user info
+ 
   const completeUser = userData?.data || user;
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-primary text-white fixed top-0 left-0 right-0 z-50 h-16 border-b border-gray-700 shadow-lg">
+      <header className="bg-secondary text-black fixed top-0 left-0 right-0 z-50 h-16 border-b border-gray-200">
         <div className="flex items-center justify-between h-full px-4 md:px-6">
           {/* Left side - Logo and mobile menu */}
           <div className="flex items-center space-x-4">
@@ -88,7 +88,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <h2 className="text-lg font-bold">Dashboard</h2>
-                <p className="text-secondary text-xs capitalize">
+                <p className="text-black text-xs capitalize">
                   {completeUser?.role} Panel
                 </p>
               </div>
@@ -102,7 +102,7 @@ const Dashboard = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="flex items-center space-x-2 p-1 hover:bg-gray-800 rounded-full"
+                  className="flex items-center space-x-2 p-1 bg-transparent hover:bg-gray-100 "
                 >
                   <Avatar className="h-8 w-8 border-2 border-gray-600">
                     <AvatarImage 
@@ -117,9 +117,6 @@ const Dashboard = () => {
                     <p className="text-sm font-medium truncate max-w-[120px]">
                       {completeUser?.name || "User"}
                     </p>
-                    <p className="text-xs text-gray-300 capitalize">
-                      {completeUser?.role}
-                    </p>
                   </div>
                 </Button>
               </DropdownMenuTrigger>
@@ -127,7 +124,7 @@ const Dashboard = () => {
                 <DropdownMenuItem asChild className="cursor-pointer">
                   <NavLink
                     to="/dashboard/myProfile"
-                    className="flex items-center w-full px-2 py-2"
+                    className="flex items-center w-full px-2 py-2 hover:bg-accent/10 rounded"
                     onClick={() => setSidebarOpen(false)}
                   >
                     <User className="w-4 h-4 mr-2" />
@@ -135,7 +132,7 @@ const Dashboard = () => {
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="cursor-pointer text-red-600 focus:text-red-700 flex items-center px-2 py-2"
+                  className="cursor-pointer text-red-600 focus:text-red-700 flex items-center px-2 py-2 hover:bg-red-100 rounded"
                   onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4 mr-2" />

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  // const [isPlaying, setIsPlaying] = useState(true);
+ const [isPlaying, setIsPlaying] = useState(true);
+ console.log(setIsPlaying);
 
   const slides = [
     {
@@ -24,7 +25,7 @@ const Banner = () => {
       subtitle: "Epic moments deserve epic photos",
       description: "200MP camera. Nightography. S Pen included.",
       price: "From $1199.99",
-      image: "/images/banner/img-2.jpeg",
+      image: "/images/banner/img-2.jpg",
       buttonText: "Shop Now",
       buttonLink: "/galaxy-s23"
     },
@@ -34,24 +35,24 @@ const Banner = () => {
       subtitle: "The only phone with AI built in",
       description: "Magic Editor. Best Take. Audio Magic Eraser.",
       price: "From $999",
-      image: "/images/banner/img-3.jpeg",
+      image: "/images/banner/img-3.jpg",
       buttonText: "Discover",
       buttonLink: "/pixel-8"
     }
   ];
 
   // Auto-play functionality
-  // useEffect(() => {
-  //   let interval: NodeJS.Timeout;
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
     
-  //   if (isPlaying) {
-  //     interval = setInterval(() => {
-  //       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  //     }, 5000);
-  //   }
+    if (isPlaying) {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+      }, 5000);
+    }
     
-  //   return () => clearInterval(interval);
-  // }, [isPlaying, slides.length]);
+    return () => clearInterval(interval);
+  }, [isPlaying, slides.length]);
 
   const goToNext = () => {
     setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);

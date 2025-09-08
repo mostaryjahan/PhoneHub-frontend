@@ -16,7 +16,7 @@ const TodayDeals = ({ data }: { data: { data: TPhoneData[] } }) => {
             <span className="text-sm font-semibold text-primary">Hot Deals</span>
           </div>
         <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-          Today's <span className="text-primary">Hot Deals</span>
+          Today's <span className="text-primary">Special Offers</span>
         </h2>
         <p className="text-gray-600 text-lg max-w-2xl mx-auto">
           Don't miss out on these exclusive limited-time offers on premium smartphones
@@ -148,7 +148,7 @@ const CardBig = ({ _id, price, image, brand, model, inStock }: CardPropsType) =>
 
   return (
     <div className="group bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-all duration-300 border border-white/10">
-      <Link to={`/product-details/${_id}`} className="block">
+      <Link to={`/details/${_id}`} className="block">
         <div className="relative overflow-hidden rounded-lg bg-white p-4">
           <img 
             src={image} 
@@ -188,7 +188,7 @@ const Card = ({ _id, price, image, brand, model, inStock }: CardPropsType) => {
 
   return (
     <div className="group bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-all duration-300 border border-white/10">
-      <Link to={`/product-details/${_id}`} className="block">
+      <Link to={`/details/${_id}`} className="block">
         <div className="relative overflow-hidden rounded-lg bg-white p-4">
           <img 
             src={image} 

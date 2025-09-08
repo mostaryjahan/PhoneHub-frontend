@@ -20,7 +20,7 @@ const Sidebar = () => {
 
 
   return (
-    <div className="w-64 min-h-screen bg-primary text-white fixed left-0 top-0 overflow-y-auto border-r border-gray-700 ">
+    <div className="w-64 min-h-screen bg-secondary text-black fixed left-0 top-0 overflow-y-auto border-r border-gray-200 ">
       {/* Header */}
       <div className="px-4">
 
@@ -28,7 +28,7 @@ const Sidebar = () => {
         {/* Back to Home Link */}
         <NavLink
           to="/"
-          className="flex items-center gap-3 p-3  text-white hover:text-gray-400 transition-all duration-200 mt-24"
+          className="flex items-center gap-3 p-3  text-accent hover:text-gray-400 transition-all duration-200 mt-24"
         >
           <Home className="w-5 h-5" />
           <span>Back to Home</span>
@@ -49,8 +49,8 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
                   isActive
-                    ? " text-gray-100 font-semibold shadow-lg"
-                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                 }`
               }
             >
@@ -78,9 +78,9 @@ const Sidebar = () => {
                   to="/dashboard/manageProducts"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -93,9 +93,9 @@ const Sidebar = () => {
                   to="/dashboard/manageUsers"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -108,9 +108,9 @@ const Sidebar = () => {
                   to="/dashboard/manageOrders"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -123,9 +123,9 @@ const Sidebar = () => {
                   to="/dashboard/myProfile"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -144,9 +144,9 @@ const Sidebar = () => {
               to="/dashboard/overview"
               className={({ isActive }) =>
                 `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                  isActive
-                    ? " text-gray-100 font-semibold shadow-lg"
-                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                   isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                 }`
               }
             >
@@ -159,9 +159,9 @@ const Sidebar = () => {
                   to="/dashboard/addPhone"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -174,9 +174,9 @@ const Sidebar = () => {
                   to="/dashboard/manageProducts"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -189,9 +189,9 @@ const Sidebar = () => {
                   to="/dashboard/manageOrders"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -204,9 +204,9 @@ const Sidebar = () => {
                   to="/dashboard/myProfile"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -225,8 +225,8 @@ const Sidebar = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -240,8 +240,8 @@ const Sidebar = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -254,9 +254,9 @@ const Sidebar = () => {
                   to="/dashboard/trackOrders"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >
@@ -269,9 +269,9 @@ const Sidebar = () => {
                   to="/dashboard/myOrderHistory"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? " text-gray-100 font-semibold shadow-lg"
-                        : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                       isActive
+                        ? " text-gray-900 font-semibold shadow-lg"
+                        : "text-gray-700 hover:text-blue-700 font-semibold "
                     }`
                   }
                 >

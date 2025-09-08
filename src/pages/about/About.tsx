@@ -1,8 +1,10 @@
+import { Badge } from "@/components/ui/badge";
 import { 
   Shield, 
   Award, 
   Heart, 
-  Globe, 
+  Globe,
+  
 } from "lucide-react";
 
 const About = () => {
@@ -64,9 +66,9 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className=" text-black py-20">
+      <section className=" text-black py-14">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">About PhoneHub</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3">About PhoneHub</h1>
           <p className=" md:text-lg text-gray-800 max-w-3xl mx-auto">
             Your trusted partner in the world of mobile technology
           </p>
@@ -78,6 +80,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
+              <Badge className="mb-4 bg-accent/10 text-accent px-2 py-1 rounded-full text-xs">Our Journey</Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">Our Story</h2>
               <p className="text-lg text-gray-700 mb-6">
                 Founded in 2015, PhoneHub started as a small passion project between tech enthusiasts 

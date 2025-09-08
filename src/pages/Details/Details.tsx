@@ -20,7 +20,7 @@ const Details = () => {
   const [addToCartMutation] = useAddToCartMutation();
   const user = useAppSelector(selectCurrentUser);
 
-  console.log("single phone info", phone);
+ 
 
   const handleAddToCart = async () => {
     if (!user) {

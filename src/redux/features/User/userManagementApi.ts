@@ -42,31 +42,31 @@ export const userManagementApi = baseApi.injectEndpoints({
       }),
   }),
     updateProfile: builder.mutation({
-      query: (data) => ({
-        url: "/auth/update-profile",
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: ["users"],
-    }),
-     // Update a specific user by ID
-     updateUserProfile: builder.mutation({
-      query: ({ id, userData }) => ({
+      query: ({id, userData}) => ({
         url: `/users/update-profile/${id}`,
         method: "PATCH",
         body: userData,
       }),
-      invalidatesTags: ["users", "user"],
+      invalidatesTags: ["users","user"],
+    }),
+     // Update a specific user by ID
+    updateUserProfile: builder.mutation({
+      query: ({ id, userData }) => ({
+        url: `/users/update-profile/${id}`,
+        method: 'PATCH',
+        body: userData,
+      }),
+      invalidatesTags: ["user", "users"],
     }),
 
     // Update a specific user photo by ID
     updateUserProfilePhoto: builder.mutation({
       query: ({ id, userData }) => ({
         url: `/users/update-profile-photo/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: userData,
       }),
-      invalidatesTags: ["users"],
+      invalidatesTags: ["user", "users"],
     }),
   }),
 });

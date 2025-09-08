@@ -13,10 +13,43 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Logo from "@/assets/Logo";
+import { useState } from "react";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubscribe = async (e: any) => {
+    e.preventDefault();
+    
+    if (!email) return;
+    
+    setIsLoading(true);
+    
+    // Simulate API call
+    try {
+      // In a real application, you would call your newsletter API here
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // For demo purposes, we'll just set the subscribed state to true
+      setIsSubscribed(true);
+      setEmail("");
+      
+      // Reset after 5 seconds
+      setTimeout(() => {
+        setIsSubscribed(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Subscription error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-gray-950 text-white">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -24,8 +57,8 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                <span className="text-primary font-bold text-lg">PH</span>
+              <div className=" bg-secondary/90 rounded-lg flex items-center justify-center p-1">
+               <Logo/>
               </div>
               <span className="text-2xl font-bold">PhoneHub</span>
             </div>
@@ -79,16 +112,30 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-secondary">Stay Updated</h3>
             <p className="text-gray-300">Subscribe to our newsletter for the latest products and offers</p>
-            <div className="space-y-3">
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-              />
-              <Button className="w-full bg-secondary text-primary hover:bg-secondary/90 font-semibold">
-                Subscribe
-              </Button>
-            </div>
+            
+            {isSubscribed ? (
+              <div className="p-3 bg-green-900/30 border border-green-800 rounded-md text-green-400 text-center">
+                Thank you for subscribing!
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="space-y-3">
+                <Input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <Button 
+                  type="submit"
+                  className="w-full bg-secondary text-primary hover:bg-secondary/90 font-semibold"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Subscribing..." : "Subscribe"}
+                </Button>
+              </form>
+            )}
             
             <div className="space-y-3 pt-4">
               <div className="flex items-center space-x-3">
@@ -113,20 +160,20 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-wrap items-center justify-center gap-8">
             <div className="flex items-center space-x-2">
-              <Shield className="w-6 h-6 text-secondary" />
-              <span className="text-gray-300">Secure Payments</span>
+              <Shield className="w-6 h-6 text-secondary/40" />
+              <span className="text-gray-400">Secure Payments</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Truck className="w-6 h-6 text-secondary" />
-              <span className="text-gray-300">Free Shipping Over $499</span>
+              <Truck className="w-6 h-6 text-secondary/40" />
+              <span className="text-gray-400">Free Shipping Over $499</span>
             </div>
             <div className="flex items-center space-x-2">
-              <HeadphonesIcon className="w-6 h-6 text-secondary" />
-              <span className="text-gray-300">24/7 Support</span>
+              <HeadphonesIcon className="w-6 h-6 text-secondary/40" />
+              <span className="text-gray-400">24/7 Support</span>
             </div>
             <div className="flex items-center space-x-2">
-              <CreditCard className="w-6 h-6 text-secondary" />
-              <span className="text-gray-300">Easy Returns</span>
+              <CreditCard className="w-6 h-6 text-secondary/40" />
+              <span className="text-gray-400">Easy Returns</span>
             </div>
           </div>
         </div>
@@ -137,27 +184,18 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2024 PhoneHub. All rights reserved.
+              © 2025 PhoneHub. All rights reserved.
             </p>
             <div className="flex items-center space-x-6">
-              <a href="/privacy" className="text-gray-400 hover:text-secondary text-sm transition-colors">
+              <p className="text-gray-400 hover:text-secondary text-sm transition-colors">
                 Privacy Policy
-              </a>
-              <a href="/terms" className="text-gray-400 hover:text-secondary text-sm transition-colors">
+              </p>
+              <p className="text-gray-400 hover:text-secondary text-sm transition-colors">
                 Terms of Service
-              </a>
-              <a href="/refund" className="text-gray-400 hover:text-secondary text-sm transition-colors">
+              </p>
+              <p className="text-gray-400 hover:text-secondary text-sm transition-colors">
                 Refund Policy
-              </a>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-400 text-sm">Accepted Payments:</span>
-              <div className="flex space-x-2">
-                <div className="w-8 h-5 bg-gray-700 rounded-sm"></div>
-                <div className="w-8 h-5 bg-gray-700 rounded-sm"></div>
-                <div className="w-8 h-5 bg-gray-700 rounded-sm"></div>
-                <div className="w-8 h-5 bg-gray-700 rounded-sm"></div>
-              </div>
+              </p>
             </div>
           </div>
         </div>
