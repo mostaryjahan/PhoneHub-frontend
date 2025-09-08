@@ -189,7 +189,6 @@ const AddPhoneForm = () => {
                     <option value="Google">Google</option>
                     <option value="Motorola">Motorola</option>
                     <option value="OnePlus">OnePlus</option>
-                    <option value="Nokia">Nokia</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>

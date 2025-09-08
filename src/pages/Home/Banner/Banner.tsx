@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
- const [isPlaying, setIsPlaying] = useState(true);
- console.log(setIsPlaying);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const slides = [
     {
@@ -55,15 +53,25 @@ const Banner = () => {
   }, [isPlaying, slides.length]);
 
   const goToNext = () => {
+    setIsPlaying(false);
     setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);
+    setTimeout(() => setIsPlaying(true), 10000);
   };
 
   const goToPrev = () => {
+    setIsPlaying(false);
     setCurrentSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1);
+    setTimeout(() => setIsPlaying(true), 10000);
   };
 
   const goToSlide = (index: number) => {
+    setIsPlaying(false);
     setCurrentSlide(index);
+    setTimeout(() => setIsPlaying(true), 10000);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -119,8 +127,14 @@ const Banner = () => {
           <ChevronRight size={24} />
         </button>
         
-      
-        
+        {/* Play/Pause button */}
+        <button
+          onClick={togglePlayPause}
+          className="absolute top-4 right-4 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full"
+          aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
+        >
+          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+        </button>
         
         {/* Indicators */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
@@ -137,8 +151,6 @@ const Banner = () => {
             />
           ))}
         </div>
-        
-       
       </div>
     </div>
   );

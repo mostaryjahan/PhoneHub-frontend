@@ -1,8 +1,12 @@
-# PhoneHUb Frontend
+# PhoneHub Frontend
 
 A modern web application for managing and browsing stationery products, developed using **React**, **TypeScript**, and **Redux**. This project utilizes several state-of-the-art libraries and tools, including **ShadCN UI** for styling and **TailwindCSS** for custom design. The app provides users with features like product browsing, cart management, and profile customization.
 
-🔗 **Live Link:** https://
+
+## 🌐 Live Demo
+
+- **Frontend:** [https://phone-hub-frontend.vercel.app](https://phone-hub-frontend.vercel.app) 
+- **Backend:** [https://phonehub-server.vercel.app](https://phonehub-server.vercel.app) 
 
 
 
@@ -28,20 +32,20 @@ A modern web application for managing and browsing stationery products, develope
 - **Redux Persist:** To maintain state across sessions.
 - **React Router:** Navigation and routing.
 
----
+
 
 ## Styling
 
 - **TailwindCSS:** Utility-first CSS framework.
 - **ShadCN:** A set of beautifully-designed, accessible components and a code distribution platform. It provides TailwindCSS minimally styled components for rapid UI development.
 
----
+
 
 ## Build Tool
 
 - **Vite:** Fast and modern build tool.
 
----
+
 
 ## Prerequisites
 
@@ -50,9 +54,25 @@ A modern web application for managing and browsing stationery products, develope
 
 ---
 
-## Getting Started
+## 🚀 Setup Instructions
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/mostaryjahan/PhoneHub-frontend
-   cd PhoneHub-frontend
+### **Frontend**
+```bash
+git clone https://github.com/mostaryjahan/PhoneHub-frontend.git
+cd PhoneHub-frontend
+npm install
+npm run dev
+```
+### **Backend**
+```bash
+git clone https://github.com/mostaryjahan/PhoneHub-backend.git
+cd PhoneHub-backend
+npm install
+npm run start:dev
+```
+
+
+#### Links:
+- GitHub Frontend: [Frontend Repo URL](https://github.com/mostaryjahan/PhoneHub-frontend.git)
+
+- GitHub Backend: [Backend Repo URL](https://github.com/mostaryjahan/PhoneHub-backend.git)

@@ -68,7 +68,7 @@ const Dashboard = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden text-white hover:bg-gray-800"
+                  className="md:hidden text-black hover:bg-gray-600"
                 >
                   <Menu className="h-6 w-6" />
                 </Button>
@@ -124,7 +124,7 @@ const Dashboard = () => {
                 <DropdownMenuItem asChild className="cursor-pointer">
                   <NavLink
                     to="/dashboard/myProfile"
-                    className="flex items-center w-full px-2 py-2 hover:bg-accent/10 rounded"
+                    className="flex items-center w-full px-2 py-2 hover:text-white hover:bg-accent/10 rounded"
                     onClick={() => setSidebarOpen(false)}
                   >
                     <User className="w-4 h-4 mr-2" />
@@ -132,7 +132,7 @@ const Dashboard = () => {
                   </NavLink>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="cursor-pointer text-red-600 focus:text-red-700 flex items-center px-2 py-2 hover:bg-red-100 rounded"
+                  className="cursor-pointer text-red-600 hover:text-red-100 flex items-center px-2 py-2 hover:bg-red-100 rounded"
                   onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4 mr-2" />

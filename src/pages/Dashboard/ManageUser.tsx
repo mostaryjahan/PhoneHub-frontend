@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FaTrash } from "react-icons/fa";
-import Swal from 'sweetalert2';
-import { useChangeUserRoleMutation, useDeleteUsersMutation, useGetUsersQuery } from '@/redux/features/User/userManagementApi';
+
+import { useGetUsersQuery, useBlockUserMutation, useChangeUserRoleMutation } from '@/redux/features/User/userManagementApi';
 import { useState } from "react";
+import { toast } from 'sonner';
 
 const ManageUsers = () => {
     const { data, isLoading } = useGetUsersQuery({});
-    const [deleteUser] = useDeleteUsersMutation();
+    const [blockUser] = useBlockUserMutation();
     const [changeRole] = useChangeUserRoleMutation();
 
     const users = data?.data || [];
@@ -21,60 +21,37 @@ const ManageUsers = () => {
     const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
     const handleRole = async (userId: string, newRole: string) => {
-        const info = { id: userId, role: newRole };
-
-        Swal.fire({
-            title: `Are you sure you want to make this user ${newRole}?`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: `Yes, make ${newRole}!`
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const res = await changeRole(info).unwrap();
-                    if (res.data.success) {
-                        Swal.fire("Success", "Role has been changed", "success");
-                    }
-                } catch (err) {
-                    Swal.fire("Error", "Failed to update role", "error");
-                }
+        try {
+            const res = await changeRole({ id: userId, role: newRole }).unwrap();
+            if (res.success) {
+                toast.success("Role updated successfully");
             }
-        });
+        } catch (err) {
+            toast.error("Failed to update role");
+        }
     };
 
-    const handleDelete = async (userId: string) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const response = await deleteUser(userId).unwrap();
-                    if (response.data.deletedCount > 0) {
-                        Swal.fire("Deleted!", "User has been deleted.", "success");
-                    }
-                } catch (err) {
-                    Swal.fire("Error", "Failed to delete user", "error");
-                }
+    const handleBlock = async (userId: string, currentBlockStatus: boolean) => {
+        const action = currentBlockStatus ? "unblocked" : "blocked";
+        
+        try {
+            const response = await blockUser({ id: userId, isBlocked: !currentBlockStatus }).unwrap();
+            if (response.success) {
+                toast.success(`User has been ${action}`);
             }
-        });
+        } catch (err) {
+            toast.error(`Failed to ${action.slice(0, -2)} user`);
+        }
     };
 
     if(isLoading){
         return <p>Loading....</p>
     }
     return (
-        <div className="overflow-x-auto bg-white shadow-md rounded-lg p-5">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Manage Users</h2>
+        <div className="overflow-x-auto bg-gray-50 rounded-lg p-6">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Manage Users</h2>
 
-            <table className="w-full border-collapse rounded-lg overflow-hidden">
+            <table className="max-w-6xl mx-auto border-collapse rounded-lg overflow-hidden">
                 <thead className="bg-gray-100 text-gray-700">
                     <tr>
                         <th className="py-3 px-4 border">#</th>
@@ -92,20 +69,23 @@ const ManageUsers = () => {
                             <td className="py-3 px-4 border">{user.email}</td>
                             <td className="py-3 px-4 border">
                                 <select
-                                    defaultValue={user.role}
+                                    value={user.role}
                                     onChange={(e) => handleRole(user._id, e.target.value)}
-                                    className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="border p-1 rounded"
                                 >
                                     <option value="user">User</option>
                                     <option value="admin">Admin</option>
+                                    <option value="vendor">Vendor</option>
                                 </select>
                             </td>
                             <td className="py-3 px-4 border text-center">
                                 <button
-                                    onClick={() => handleDelete(user._id)}
-                                    className="text-red-500 hover:text-red-700 transition-all"
+                                    onClick={() => handleBlock(user._id, user.isBlocked)}
+                                    className={`px-3 py-1 rounded text-white ${
+                                        user.isBlocked ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'
+                                    }`}
                                 >
-                                    <FaTrash className="text-2xl" />
+                                    {user.isBlocked ? 'Unblock' : 'Block'}
                                 </button>
                             </td>
                         </tr>

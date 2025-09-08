@@ -2,7 +2,7 @@
 import { useDeleteOrderMutation, useGetAllOrdersQuery, useUpdateOrderStatusMutation } from "@/redux/features/order/order";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 const ORDERS_PER_PAGE = 5;
 
@@ -27,50 +27,28 @@ const ManageOrders = () => {
     );
 
     const handleStatusChange = async (orderId: string, newStatus: string) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: `Change order status to ${newStatus}?`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, change it!"
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const response = await updateOrderStatus({ id: orderId, status: newStatus }).unwrap();
-                    if (response.success) {
-                        refetch();
-                        Swal.fire("Updated!", "Order status has been changed.", "success");
-                    }
-                } catch (error) {
-                    Swal.fire("Error!", "Failed to update order status.", "error");
-                }
-            }
+        const promise = updateOrderStatus({ id: orderId, status: newStatus }).unwrap();
+        
+        toast.promise(promise, {
+            loading: 'Updating order status...',
+            success: () => {
+                refetch();
+                return 'Order status updated successfully';
+            },
+            error: 'Failed to update order status',
         });
     };
 
     const handleDeleteOrder = (orderId: string) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!"
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const response = await deleteOrder(orderId).unwrap();
-                    if (response.success) {
-                        refetch();
-                        Swal.fire("Deleted!", "Order has been deleted.", "success");
-                    }
-                } catch (error) {
-                    Swal.fire("Error!", "Failed to delete order.", "error");
-                }
-            }
+        const promise = deleteOrder(orderId).unwrap();
+        
+        toast.promise(promise, {
+            loading: 'Deleting order...',
+            success: () => {
+                refetch();
+                return 'Order deleted successfully';
+            },
+            error: 'Failed to delete order',
         });
     };
 
@@ -80,8 +58,8 @@ const ManageOrders = () => {
         }
     };
 
-    if(isLoading){
-        return <p>Loading.....</p>
+    if (isLoading) {
+        return <p>Loading.....</p>;
     }
 
     return (

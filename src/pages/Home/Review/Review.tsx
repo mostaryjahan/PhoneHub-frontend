@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,17 +7,17 @@ import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Star, 
-  ThumbsUp, 
-  MessageCircle, 
-  Calendar, 
+import {
+  Star,
+  ThumbsUp,
+  MessageCircle,
+  Calendar,
   User,
   Send,
   Filter,
   ChevronDown,
   CheckCircle,
-  XCircle
+  XCircle,
 } from "lucide-react";
 import {
   Select,
@@ -28,137 +28,182 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
+// Define the review interface
+interface Review {
+  id: number;
+  user: {
+    name: string;
+    avatar: string;
+    verified: boolean;
+  };
+  rating: number;
+  title: string;
+  comment: string;
+  date: string;
+  likes: number;
+  replies: number;
+  helpful: boolean;
+}
+
 const Review = () => {
-  const [rating, setRating] = useState(0);
+  const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [reviewTitle, setReviewTitle] = useState("");
   const [sortBy, setSortBy] = useState("recent");
   const [activeFilter, setActiveFilter] = useState("all");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submissionStatus, setSubmissionStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [reviews, setReviews] = useState<Review[]>([]);
 
-  // Sample reviews data
-  const reviews = [
+  // Initial sample reviews data
+  const initialReviews: Review[] = [
     {
       id: 1,
       user: {
         name: "Sarah Johnson",
         avatar: "",
-        verified: true
+        verified: true,
       },
       rating: 5,
       title: "Excellent phone!",
-      comment: "The camera quality is amazing and battery life lasts all day. Very satisfied with my purchase.",
+      comment:
+        "The camera quality is amazing and battery life lasts all day. Very satisfied with my purchase.",
       date: "2024-01-15",
       likes: 24,
       replies: 3,
-      helpful: true
+      helpful: true,
     },
     {
       id: 2,
       user: {
         name: "Mike Chen",
         avatar: "",
-        verified: false
+        verified: false,
       },
       rating: 4,
       title: "Great value for money",
-      comment: "Good performance and features for the price. The display could be brighter though.",
+      comment:
+        "Good performance and features for the price. The display could be brighter though.",
       date: "2024-01-12",
       likes: 18,
       replies: 1,
-      helpful: true
+      helpful: true,
     },
     {
       id: 3,
       user: {
         name: "Emily Davis",
         avatar: "",
-        verified: true
+        verified: true,
       },
       rating: 3,
       title: "Average experience",
-      comment: "It's okay for basic use, but I expected better performance. Sometimes lags when multitasking.",
+      comment:
+        "It's okay for basic use, but I expected better performance. Sometimes lags when multitasking.",
       date: "2024-01-10",
       likes: 8,
       replies: 0,
-      helpful: false
+      helpful: false,
     },
     {
       id: 4,
       user: {
         name: "Alex Rodriguez",
         avatar: "",
-        verified: true
+        verified: true,
       },
       rating: 5,
       title: "Best phone I've ever owned",
-      comment: "Incredible performance, stunning display, and the battery lasts forever. Highly recommend!",
+      comment:
+        "Incredible performance, stunning display, and the battery lasts forever. Highly recommend!",
       date: "2024-01-08",
       likes: 32,
       replies: 5,
-      helpful: true
+      helpful: true,
     },
     {
       id: 5,
       user: {
         name: "John Smith",
         avatar: "",
-        verified: false
+        verified: false,
       },
-      rating: 5,
+      rating: 2,
       title: "Disappointed",
-      comment: "Battery life is poor and the phone overheats easily. Not what I expected.",
+      comment:
+        "Battery life is poor and the phone overheats easily. Not what I expected.",
       date: "2024-01-05",
       likes: 5,
       replies: 2,
-      helpful: false
+      helpful: false,
     },
     {
       id: 6,
       user: {
         name: "Lisa Wang",
         avatar: "",
-        verified: true
+        verified: true,
       },
-      rating: 5,
+      rating: 1,
       title: "Terrible experience",
       comment: "Stopped working after 2 weeks. Customer service was unhelpful.",
       date: "2024-01-03",
       likes: 3,
       replies: 1,
-      helpful: false
-    }
+      helpful: false,
+    },
   ];
 
+  // Load reviews from localStorage on component mount
+  useEffect(() => {
+    const savedReviews = localStorage.getItem("productReviews");
+    if (savedReviews) {
+      setReviews(JSON.parse(savedReviews));
+    } else {
+      setReviews(initialReviews);
+      localStorage.setItem("productReviews", JSON.stringify(initialReviews));
+    }
+  }, []);
+
   // Calculate rating statistics
-  const ratingStats = {
-    total: reviews.length,
-    average: Number((reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)),
-    distribution: [
-      reviews.filter(r => r.rating === 1).length,
-      reviews.filter(r => r.rating === 2).length,
-      reviews.filter(r => r.rating === 3).length,
-      reviews.filter(r => r.rating === 4).length,
-      reviews.filter(r => r.rating === 5).length
-    ]
-  };
+  const ratingStats = useMemo(() => {
+    return {
+      total: reviews.length,
+      average: Number(
+        (
+          reviews.reduce((sum, review) => sum + review.rating, 0) /
+          reviews.length
+        ).toFixed(1)
+      ),
+      distribution: [
+        reviews.filter((r) => r.rating === 1).length,
+        reviews.filter((r) => r.rating === 2).length,
+        reviews.filter((r) => r.rating === 3).length,
+        reviews.filter((r) => r.rating === 4).length,
+        reviews.filter((r) => r.rating === 5).length,
+      ],
+    };
+  }, [reviews]);
 
   // Filter and sort reviews
   const filteredAndSortedReviews = useMemo(() => {
     let filtered = reviews;
-    
+
     // Apply star filter
     if (activeFilter !== "all") {
       const starFilter = parseInt(activeFilter);
-      filtered = filtered.filter(review => review.rating === starFilter);
+      filtered = filtered.filter((review) => review.rating === starFilter);
     }
-    
+
     // Apply sorting
     switch (sortBy) {
       case "recent":
-        return [...filtered].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        return [...filtered].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
       case "helpful":
         return [...filtered].sort((a, b) => b.likes - a.likes);
       case "highest":
@@ -168,12 +213,12 @@ const Review = () => {
       default:
         return filtered;
     }
-  }, [activeFilter, sortBy]);
+  }, [activeFilter, sortBy, reviews]);
 
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!rating || !reviewText) {
+
+    if (!userRating || !reviewText) {
       toast.error("Please provide both a rating and review text");
       return;
     }
@@ -183,23 +228,43 @@ const Review = () => {
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Here you would typically send the review to your backend
-      console.log({ rating, reviewTitle, reviewText });
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Create new review object
+      const newReview: Review = {
+        id: Date.now(), // Use timestamp as unique ID
+        user: {
+          name: "You", // You can replace this with actual user data
+          avatar: "",
+          verified: true,
+        },
+        rating: userRating,
+        title: reviewTitle || "Great product!", // Default title if empty
+        comment: reviewText,
+        date: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
+        likes: 0,
+        replies: 0,
+        helpful: false,
+      };
+
+      // Add new review to the beginning of the array
+      const updatedReviews = [newReview, ...reviews];
+
+      // Update state and localStorage
+      setReviews(updatedReviews);
+      localStorage.setItem("productReviews", JSON.stringify(updatedReviews));
+
       // Show success message
       setSubmissionStatus("success");
       toast.success("Review submitted successfully!");
-      
+
       // Reset form after 2 seconds
       setTimeout(() => {
-        setRating(0);
+        setUserRating(0);
         setReviewTitle("");
         setReviewText("");
         setSubmissionStatus("idle");
       }, 2000);
-      
     } catch (error) {
       setSubmissionStatus("error");
       toast.error("Failed to submit review. Please try again.");
@@ -209,11 +274,8 @@ const Review = () => {
     }
   };
 
-  const StarRating = ({ rating, editable = false, onRate }: { 
-    rating: number; 
-    editable?: boolean;
-    onRate?: (rating: number) => void;
-  }) => {
+  // StarRating component for user input
+  const EditableStarRating = () => {
     return (
       <div className="flex items-center">
         {[...Array(5)].map((_, index) => {
@@ -222,20 +284,38 @@ const Review = () => {
             <button
               key={index}
               type="button"
-              className={`${
-                editable ? "cursor-pointer" : "cursor-default"
-              } transition-colors duration-150`}
-              onClick={() => editable && onRate && onRate(starValue)}
-              onMouseEnter={() => editable && setHoverRating(starValue)}
-              onMouseLeave={() => editable && setHoverRating(0)}
+              className="cursor-pointer transition-colors duration-150"
+              onClick={() => setUserRating(starValue)}
+              onMouseEnter={() => setHoverRating(starValue)}
+              onMouseLeave={() => setHoverRating(0)}
               disabled={isSubmitting}
             >
-              {starValue <= (hoverRating || rating) ? (
+              {starValue <= (hoverRating || userRating) ? (
                 <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
               ) : (
                 <Star className="w-5 h-5 text-gray-300" />
               )}
             </button>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // StarRating component for display only
+  const DisplayStarRating = ({ rating }: { rating: number }) => {
+    return (
+      <div className="flex items-center">
+        {[...Array(5)].map((_, index) => {
+          const starValue = index + 1;
+          return (
+            <div key={index}>
+              {starValue <= rating ? (
+                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+              ) : (
+                <Star className="w-5 h-5 text-gray-300" />
+              )}
+            </div>
           );
         })}
       </div>
@@ -269,19 +349,23 @@ const Review = () => {
                   </span>
                   <span className="text-2xl text-gray-500">/5</span>
                 </div>
-                <StarRating rating={ratingStats.average} />
+                <DisplayStarRating rating={Math.round(ratingStats.average)} />
                 <p className="text-gray-600 mt-2">
                   Based on {ratingStats.total} reviews
                 </p>
-                
+
                 {/* Rating Distribution */}
                 <div className="mt-6 space-y-2">
                   {[5, 4, 3, 2, 1].map((stars, index) => (
                     <div key={stars} className="flex items-center gap-2">
                       <span className="text-sm text-gray-600 w-4">{stars}</span>
                       <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <Progress 
-                        value={(ratingStats.distribution[4 - index] / ratingStats.total) * 100} 
+                      <Progress
+                        value={
+                          (ratingStats.distribution[4 - index] /
+                            ratingStats.total) *
+                          100
+                        }
                         className="flex-1 h-2"
                       />
                       <span className="text-sm text-gray-600 w-12 text-right">
@@ -303,27 +387,27 @@ const Review = () => {
                 {submissionStatus === "success" && (
                   <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="text-green-700 font-medium">Review submitted successfully!</span>
+                    <span className="text-green-700 font-medium">
+                      Review submitted successfully!
+                    </span>
                   </div>
                 )}
-                
+
                 {submissionStatus === "error" && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
                     <XCircle className="w-5 h-5 text-red-600" />
-                    <span className="text-red-700 font-medium">Failed to submit review. Please try again.</span>
+                    <span className="text-red-700 font-medium">
+                      Failed to submit review. Please try again.
+                    </span>
                   </div>
                 )}
 
                 <form onSubmit={handleSubmitReview} className="space-y-4">
                   <div className="space-y-2">
                     <Label>Your Rating</Label>
-                    <StarRating 
-                      rating={rating} 
-                      editable={true} 
-                      onRate={setRating} 
-                    />
+                    <EditableStarRating />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="title">Review Title</Label>
                     <Input
@@ -334,7 +418,7 @@ const Review = () => {
                       disabled={isSubmitting}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="review">Your Review</Label>
                     <Textarea
@@ -346,15 +430,15 @@ const Review = () => {
                       disabled={isSubmitting}
                     />
                   </div>
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-blue-600 hover:bg-blue-700"
-                    disabled={!rating || !reviewText || isSubmitting}
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    disabled={!userRating || !reviewText || isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white text-white mr-2"></div>
                         Submitting...
                       </>
                     ) : (
@@ -382,8 +466,10 @@ const Review = () => {
                       {["all", "5", "4", "3", "2", "1"].map((filter) => (
                         <Badge
                           key={filter}
-                          variant={activeFilter === filter ? "default" : "outline"}
-                          className="cursor-pointer transition-colors" 
+                          variant={
+                            activeFilter === filter ? "default" : "outline"
+                          }
+                          className="cursor-pointer bg-accent/10 hover:bg-accent/20"
                           onClick={() => setActiveFilter(filter)}
                         >
                           {filter === "all" ? "All" : `${filter} stars`}
@@ -391,7 +477,7 @@ const Review = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <Select value={sortBy} onValueChange={setSortBy}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Sort by" />
@@ -410,7 +496,8 @@ const Review = () => {
             {/* Reviews Count */}
             <div className="mb-4">
               <p className="text-gray-600">
-                Showing {filteredAndSortedReviews.length} of {reviews.length} reviews
+                Showing {filteredAndSortedReviews.length} of {reviews.length}{" "}
+                reviews
                 {activeFilter !== "all" && ` (${activeFilter} stars)`}
               </p>
             </div>
@@ -428,34 +515,51 @@ const Review = () => {
                             <User className="w-6 h-6" />
                           </AvatarFallback>
                         </Avatar>
-                        
+
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <h4 className="font-semibold">{review.user.name}</h4>
+                            <h4 className="font-semibold">
+                              {review.user.name}
+                            </h4>
                             {review.user.verified && (
-                              <Badge variant="outline" className="bg-green-50 text-green-700">
+                              <Badge
+                                variant="outline"
+                                className="bg-green-50 text-green-700"
+                              >
                                 Verified Buyer
                               </Badge>
                             )}
                           </div>
-                          
+
                           <div className="flex items-center gap-4 mb-3">
-                            <StarRating rating={review.rating} />
+                            <DisplayStarRating rating={review.rating} />
                             <span className="text-sm text-gray-500 flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               {new Date(review.date).toLocaleDateString()}
                             </span>
                           </div>
-                          
-                          <h5 className="font-semibold text-lg mb-2">{review.title}</h5>
-                          <p className="text-gray-600 mb-4 text-xs sm:text-base">{review.comment}</p>
-                          
+
+                          <h5 className="font-semibold text-lg mb-2">
+                            {review.title}
+                          </h5>
+                          <p className="text-gray-600 mb-4 text-xs sm:text-base">
+                            {review.comment}
+                          </p>
+
                           <div className="flex items-center gap-1 md:gap-4">
-                            <Button variant="ghost" size="sm" className="text-gray-500">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-gray-500"
+                            >
                               <ThumbsUp className="w-4 h-4 mr-1" />
                               Helpful ({review.likes})
                             </Button>
-                            <Button variant="ghost" size="sm" className="text-gray-500">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-gray-500"
+                            >
                               <MessageCircle className="w-4 h-4 mr-1" />
                               Reply ({review.replies})
                             </Button>
@@ -473,10 +577,9 @@ const Review = () => {
                       No reviews found
                     </h3>
                     <p className="text-gray-500">
-                      {activeFilter !== "all" 
+                      {activeFilter !== "all"
                         ? `No ${activeFilter}-star reviews found. Try a different filter.`
-                        : "No reviews available yet."
-                      }
+                        : "No reviews available yet."}
                     </p>
                   </CardContent>
                 </Card>
@@ -484,14 +587,15 @@ const Review = () => {
             </div>
 
             {/* Load More Button (only show if there are more reviews) */}
-            {filteredAndSortedReviews.length > 0 && filteredAndSortedReviews.length < reviews.length && (
-              <div className="text-center mt-8">
-                <Button variant="outline" className="px-8">
-                  Load More Reviews
-                  <ChevronDown className="w-4 h-4 ml-2" />
-                </Button>
-              </div>
-            )}
+            {filteredAndSortedReviews.length > 0 &&
+              filteredAndSortedReviews.length < reviews.length && (
+                <div className="text-center mt-8">
+                  <Button variant="outline" className="px-8">
+                    Load More Reviews
+                    <ChevronDown className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              )}
           </div>
         </div>
       </div>

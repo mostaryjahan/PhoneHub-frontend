@@ -221,7 +221,7 @@ const Navbar = () => {
                     <BsCart3 />
                   </button>
                   {cartItemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-secondary text-primary text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 bg-orange-200 text-orange-700 text-xs rounded-full h-5 w-5 flex items-center justify-center">
                       {cartItemCount}
                     </span>
                   )}
@@ -250,12 +250,12 @@ const Navbar = () => {
                   className="bg-white text-primary w-40 mt-2"
                 >
                   <DropdownMenuItem asChild>
-                    <NavLink to="/dashboard" className="w-full cursor-pointer hover:bg-accent/20 hover:text-primary px-2 py-1 rounded-lg">
+                    <NavLink to="/dashboard" className="w-full cursor-pointer hover:text-white hover:bg-accent/20 px-2 py-1 rounded-lg">
                       Dashboard
                     </NavLink>
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    className="cursor-pointer text-red-600 focus:text-red-700 hover:bg-red-100 rounded px-2 py-1"
+                    className="cursor-pointer text-red-600 hover:text-red-100 hover:bg-red-100 rounded px-2 py-1"
                     onClick={handleLogout}
                   >
                     Logout

@@ -19,11 +19,12 @@ export const userManagementApi = baseApi.injectEndpoints({
     }),
 
     changeUserRole: builder.mutation({
-      query:(data)=>({
-        url:'/auth/role-change',
+      query:({id, role})=>({
+        url:`/users/change-role/${id}`,
         method:'PATCH',
-        body:data
-      })
+        body:{role}
+      }),
+      invalidatesTags:['users']
     }),
     deleteUsers: builder.mutation({
       query:(userId)=>{
@@ -68,6 +69,22 @@ export const userManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user", "users"],
     }),
+    blockUser: builder.mutation({
+      query: ({ id, isBlocked }) => ({
+        url: `/users/block-user/${id}`,
+        method: 'POST',
+        body: { isBlocked },
+      }),
+      invalidatesTags: ["users"],
+    }),
+    changeUserStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/users/change-status/${id}`,
+        method: 'POST',
+        body: { status },
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -78,5 +95,7 @@ export const {
   useChangeUserRoleMutation,
   useUpdateProfileMutation,
   useUpdateUserProfilePhotoMutation,
-  useUpdatePasswordMutation
+  useUpdatePasswordMutation,
+  useBlockUserMutation,
+  useChangeUserStatusMutation
 } = userManagementApi;

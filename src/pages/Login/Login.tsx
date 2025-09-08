@@ -57,7 +57,6 @@ const Login = () => {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-r from-blue-500/10 to-indigo-500/10"></div>
-    
 
       {/* Home link */}
       <Link
@@ -73,11 +72,10 @@ const Login = () => {
           <CardTitle className="text-3xl font-bold text-gray-800">
             Welcome Back
           </CardTitle>
-          <p className="text-gray-500 text-sm">
-            Sign in to your account to continue
-          </p>
         </CardHeader>
-
+        <p className="text-center text-sm text-accent mb-3">
+          Quick Login with Demo Credentials
+        </p>
         <div className="flex justify-around mb-4 px-6">
           <Button
             onClick={handleAdminClick}

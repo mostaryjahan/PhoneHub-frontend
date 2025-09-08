@@ -25,6 +25,7 @@ const carManagementApi = baseApi.injectEndpoints({
               data: response.data,
               meta: response.meta,
             }),
+            providesTags: ['Phone'],
           }),
             getSinglePhone: builder.query({
                 query:(phoneId)=>{
@@ -50,7 +51,16 @@ const carManagementApi = baseApi.injectEndpoints({
                 query:(phoneId)=>({
                     url:`/phones/${phoneId}`,
                     method:'DELETE',
-                })
+                }),
+                invalidatesTags: ['Phone'],
+            }),
+            updatePhone: builder.mutation({
+                query:({phoneId, phoneData})=>({
+                    url:`/phones/${phoneId}`,
+                    method:'PUT',
+                    body: phoneData
+                }),
+                invalidatesTags: ['Phone'],
             })
         }),
 });
@@ -59,5 +69,6 @@ export const {
    useGetAllPhonesQuery,
    useGetSinglePhoneQuery,
    useAddPhoneMutation,
-   useDeletePhoneMutation
+   useDeletePhoneMutation,
+   useUpdatePhoneMutation
 } = carManagementApi;

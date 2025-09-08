@@ -28,7 +28,7 @@ import {
   MessageCircle,
   HeadphonesIcon,
   ShieldCheck,
-  Truck
+  Truck,
 } from "lucide-react";
 
 const Contact = () => {
@@ -38,20 +38,22 @@ const Contact = () => {
     phone: "",
     subject: "",
     message: "",
-    subscribe: false
+    subscribe: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSelectChange = (value: string) => {
-    setFormData(prev => ({ ...prev, subject: value }));
+    setFormData((prev) => ({ ...prev, subject: value }));
   };
 
   const handleCheckboxChange = (checked: boolean) => {
-    setFormData(prev => ({ ...prev, subscribe: checked }));
+    setFormData((prev) => ({ ...prev, subscribe: checked }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -65,18 +67,19 @@ const Contact = () => {
       phone: "",
       subject: "",
       message: "",
-      subscribe: false
+      subscribe: false,
     });
   };
 
   return (
-    <div className="min-h-scree py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-scree py-12 px-4 sm:px-6 lg:px-8 bg-white/80">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact PhoneHub</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Have questions about our products or need support? Our team is here to help you with all your smartphone needs.
+            Have questions about our products or need support? Our team is here
+            to help you with all your smartphone needs.
           </p>
         </div>
 
@@ -112,7 +115,9 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold">Email Us</h3>
                     <p className="text-gray-600">support@phonehub.com</p>
-                    <p className="text-sm text-gray-500">We respond within 24 hours</p>
+                    <p className="text-sm text-gray-500">
+                      We respond within 24 hours
+                    </p>
                   </div>
                 </div>
 
@@ -140,15 +145,12 @@ const Contact = () => {
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium">Device Repair</span>
-                 
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium">Warranty Claims</span>
-                  
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium">Order Support</span>
-                  
                 </div>
               </CardContent>
             </Card>
@@ -210,16 +212,27 @@ const Contact = () => {
 
                     <div className="space-y-2">
                       <Label htmlFor="subject">Subject *</Label>
-                      <Select onValueChange={handleSelectChange} value={formData.subject}>
+                      <Select
+                        onValueChange={handleSelectChange}
+                        value={formData.subject}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Select a subject" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="product-inquiry">Product Inquiry</SelectItem>
-                          <SelectItem value="technical-support">Technical Support</SelectItem>
+                          <SelectItem value="product-inquiry">
+                            Product Inquiry
+                          </SelectItem>
+                          <SelectItem value="technical-support">
+                            Technical Support
+                          </SelectItem>
                           <SelectItem value="order-help">Order Help</SelectItem>
-                          <SelectItem value="warranty-claim">Warranty Claim</SelectItem>
-                          <SelectItem value="repair-service">Repair Service</SelectItem>
+                          <SelectItem value="warranty-claim">
+                            Warranty Claim
+                          </SelectItem>
+                          <SelectItem value="repair-service">
+                            Repair Service
+                          </SelectItem>
                           <SelectItem value="other">Other</SelectItem>
                         </SelectContent>
                       </Select>
@@ -240,18 +253,21 @@ const Contact = () => {
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <Checkbox 
-                      id="subscribe" 
+                    <Checkbox
+                      id="subscribe"
                       checked={formData.subscribe}
                       onCheckedChange={handleCheckboxChange}
                     />
-                    <Label htmlFor="subscribe" className="text-sm font-normal cursor-pointer">
+                    <Label
+                      htmlFor="subscribe"
+                      className="text-sm font-normal cursor-pointer"
+                    >
                       Subscribe to our newsletter for updates and promotions
                     </Label>
                   </div>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-accent text-white hover:bg-accent/80"
                     size="lg"
                   >
@@ -297,7 +313,8 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    Free shipping on orders over $50. Most orders ship within 24 hours and deliver in 2-3 business days.
+                    Free shipping on orders over $50. Most orders ship within 24
+                    hours and deliver in 2-3 business days.
                   </p>
                 </CardContent>
               </Card>
@@ -315,14 +332,19 @@ const Contact = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <div className="h-80  flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-800">PhoneHub Store</h3>
-                  <p className="text-gray-600">123 Tech Street, Dhaka,  Bangladesh</p>
-                  <Button variant="outline" className="mt-4">
-                    Get Directions
-                  </Button>
+              <div className="h-80 relative">
+                {/* Google Map Container */}
+                <div className="h-80 relative">
+                  {/* Google Map Embed */}
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.504736567997!2d90.41251821498244!3d23.81033158455669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7964df24c7b%3A0x8a3d38d0a7a97f93!2sDhaka!5e0!3m2!1sen!2sbd!4v1635585723456!5m2!1sen!2sbd"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={true}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
               </div>
             </CardContent>

@@ -293,7 +293,7 @@ const FAQ = () => {
                     </div>
                   </div>
 
-                  <Button className="w-full bg-white text-blue-600 hover:bg-blue-50">
+                  <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 cursor-default">
                     Start Live Chat
                   </Button>
                 </div>
@@ -306,16 +306,16 @@ const FAQ = () => {
                   Popular Resources
                 </h3>
                 <div className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full hover:bg-secondary cursor-default justify-start">
                     📱 Device Setup Guides
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full hover:bg-secondary cursor-default justify-start">
                     🔧 Repair Services
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full hover:bg-secondary cursor-default justify-start">
                     💳 Payment Options
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
+                  <Button variant="outline" className="w-full hover:bg-secondary cursor-default justify-start">
                     📦 Track Your Order
                   </Button>
                 </div>
